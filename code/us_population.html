@@ -16,10 +16,10 @@
   }
  #infobox{
 	position:absolute;
-	height:200px;
-	width:300px;
-	top:739px;
-	left:898px;
+  height:250px;
+	width:340px;
+	top:82px;
+	left:906px;
 	z-index: 2;
 	background:#fff;
 	color:#000;
@@ -46,11 +46,13 @@
   <script src="http://d3js.org/topojson.v1.min.js"></script>
   <script src="http://d3js.org/queue.v1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+  <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script>
 
 	  var height = 900,
           width = 1250,
-          projection = d3.geoMercator(),
+          projection = d3.geoTwoPointAzimuthalUsa(),
+          // projection = d3.geoModifiedStereographicGs48(),
           catalonia = void 0;
 
       // Special d3 helper that converts geo coordinates to paths
@@ -64,7 +66,7 @@
 
 	  /* The scale */
 	  var color = d3.scaleThreshold()
-      .domain([1000,2000,3000,5000,10000,20000,80000,150000])
+      .domain([5000,20000,50000,80000,100000,150000,200000,250000])
 			.range(["#f7fcfd","#e0ecf4","#bfd3e6","#9ebcda","#8c96c6","#8c6bb1","#88419d","#810f7c","#4d004b"]) //extracted from d3.schemeBuPu
 
 	  /* The legend */
