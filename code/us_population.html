@@ -51,8 +51,9 @@
 
 	  var height = 900,
           width = 1250,
-          projection = d3.geoTwoPointAzimuthalUsa(),
-          // projection = d3.geoModifiedStereographicGs48(),
+          // projection = d3.geoAlbersUsa(),
+          // projection = d3.geoTwoPointAzimuthalUsa(),
+          projection = d3.geoModifiedStereographicGs48(),
           catalonia = void 0;
 
       // Special d3 helper that converts geo coordinates to paths
@@ -105,7 +106,7 @@
 			//first we create an object with all the values
 			d['fips'] = +d['fips'],
 			d['area_name'] = d['area_name'],
-			d['PST045214'] = +d['PST045214'];
+			d['poblacio'] = +d['PST045214'];
 		});
 		var dataKV = data.reduce(function(res,el) {
 			res[el.fips] = el;
@@ -169,7 +170,7 @@
 						  '<dt>Code: </dt>'+
 						  '<dd>'+dataKV[d.id].fips+'</dd>'+
 						  '<dt>Inhabitants: </dt>'+
-						  '<dd>'+dataKV[d.id].PST045214+'</dd>';
+						  '<dd>'+dataKV[d.id].poblacio+'</dd>';
 		};
 
 
@@ -183,7 +184,7 @@
 		   .on("click",infobox)
 		   .on("focus",infobox)
 		   .attr("fill", function(d) {
-				return color(dataKV[d.id].PST045214);
+				return color(dataKV[d.id].poblacio);
 			});
 
       };
