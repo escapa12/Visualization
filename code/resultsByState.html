@@ -54,8 +54,9 @@ var path = d3.geo.path()               // path generator that will convert GeoJS
 		  	 .projection(projection);  // tell path generator to use albersUsa projection
 
 // Define linear scale for output
-var color = d3.scale.linear()
-			  .range(["rgb(213,222,217)","rgb(69,173,168)","rgb(84,36,55)","rgb(217,91,67)"]);
+// var color = d3.scale.linear()
+// 			  .range(["rgb(213,222,217)","rgb(69,173,168)","rgb(84,36,55)","rgb(217,91,67)"]);
+var color = ["rgb(0,0,200)","rgb(213,0,0)"]
 var legendText = ["Republicans","Democrats"];
 
 //Create SVG element and append map to the SVG
@@ -71,7 +72,7 @@ var div = d3.select("body")
     		.style("opacity", 0);
 
 d3.csv("data/results.csv", function(data) {
-	color.domain([0,1]); // setting the range of the input data
+	// color.domain([0,1]); // setting the range of the input data
 
 	d3.json("data/us-states.json", function(json) {
 		for (var i = 0; i < data.length; i++) {
@@ -91,13 +92,13 @@ d3.csv("data/results.csv", function(data) {
 
 				if (dataState == jsonState) {
 					// Copy the data value into the JSON
-					console.log(winner)
 					json.features[j].properties.winner = winner;
 					// Stop looking through the JSON
 					break;
 					}
 				}
 		}
+
 
 		// Bind the data to the SVG and create one path per GeoJSON feature
 		svg.selectAll("path")
@@ -110,11 +111,15 @@ d3.csv("data/results.csv", function(data) {
 			.style("fill", function(d) {
 			//console.log(d)
 			// Get data value
-			var value = d.properties.winner;
 
-			if (value) {
+			var value = d.properties.winner;
+			console.log(d.properties.name)
+			console.log(color[value])
+			console.log(value)
+
+			if (value===0||1) {
 			//If value exists…
-			return color(value);
+			return color[value];
 			} else {
 			//If value is undefined…
 			return "rgb(213,222,217)";
