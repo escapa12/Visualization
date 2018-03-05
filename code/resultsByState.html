@@ -232,9 +232,9 @@
 		div.style.top = d3.event.pageY + 'px';
 		div.innerHTML = '<h2>'+d.properties.name+'</h2>'+
 		                  '<dl>'+
-              '<dt>Democrats candidates( votes %): '+d.properties.democrats.substring(0, 5)+'</dt>'+
+              '<dt>Democrats candidates (votes %): '+d.properties.democrats.substring(0, 5)*100+'</dt>'+
               //'<dt>Population density: </dt>'+
-							'<dt>Republicans candidates(votes %): '+d.properties.republicans.substring(0, 5)+'</dt>'+
+							'<dt>Republicans candidates (votes%): '+d.properties.republicans.substring(0, 5)+'</dt>'+
 
               '</dl>';
 		};
