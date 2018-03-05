@@ -44,13 +44,26 @@
   #infobox dt {
  	float : left;
   }
+  #tooltip{ 
+	position: absolute; 
+	z-index: 2; 
+	height:180px;
+ 	width:290px;
+	background:#ccf;
+	color:#000
+	font-size: 1em; 
+	padding:5px; 
+	top:-1.5em; 
+	left:-5em; 
+	font-family: Helvetica, Arial, sans-serif; 
+ } 
 
   </style>
 </head>
 <body>
   <h1>US elections</h1>
   <div id="map"></div>
-  <div id="infobox"></div>
+  <div id="tooltip"></div>
   <script src="https://d3js.org/d3-geo-projection.v2.min.js"></script>
   <script src="http://d3js.org/d3.v4.min.js"></script>
   <script src="http://d3js.org/topojson.v1.min.js"></script>
@@ -61,7 +74,7 @@
 	  var height = 700,
           width = 1500,
           projection = d3.geo.albersUsa()
-				   .translate([900, height/2])    // translate to center of screen
+				   .translate([800, height/2])    // translate to center of screen
 				   .scale([1300]);          // scale things down so see entire US
 
       // Special d3 helper that converts geo coordinates to paths
@@ -175,6 +188,10 @@
 				.data(json.features)
 				.enter()
 				.append("path")
+					.on("mouseover",focus)
+		   			.on("focus",focus)
+		   			.on("mouseout",focusout)
+		   			.on("blur",focusout)
 				.attr("d", path)
 				.attr('id',function(d){return d.id})
 				.style("stroke", "#fff")
@@ -199,7 +216,6 @@
 			    .attr("y", function(d){
 			        return  path.centroid(d)[1];
 			    })
-			    .attr("text-anchor","middle")
 			    .attr('font-size','1em')
 			    .attr('font-family', 'Helvetica, Arial, sans-serif')
 			    .attr('color','#000');
@@ -227,6 +243,29 @@
 
               '</dl>';
 		};
+
+	var focus = function(d){
+		  var div = document.getElementById('tooltip');
+  		  div.style.display="block"
+		  div.style.background="#ddf";
+		  div.style.left = event.pageX + 'px'; //we position it near the area
+		  div.style.top = event.pageY + 'px';
+		  div.innerHTML = '<h2>'+d.properties.name+'</h2>'+
+		                  '<dl>'+
+              '<dt>Inhabitants: '+dataKV[d.properties.name].poblacio+'</dt>'+ 
+              '<dt>Population density: '+dataKV[d.properties.name].pob_mile+'(pers/mi^2)</dt>'+
+              '<dt>High school graduate or higher: '+dataKV[d.properties.name].educacio+'%</dt>'+
+              '<dt>Per capita money income: '+dataKV[d.properties.name].income+'$</dt>'+
+              '<dt>Persons below poverty level: '+dataKV[d.properties.name].pobresa+'%</dt>'+
+              '</dl>';	  
+		};
+		
+	var focusout = function(d){
+		document.getElementById('tooltip')
+			.style.display="none"; //this will hide the element		
+	}
+
+			
 
 
 
