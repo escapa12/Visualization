@@ -15,6 +15,15 @@
     border-width: 1px;
     border-color: #ccc;
   }
+  /* On mouse hover, lighten state color */
+	path:hover {
+		fill-opacity: .7;
+	}
+	<style type="text/css">
+	/* On mouse hover, lighten state color */
+	path:hover {
+		fill-opacity: .7;
+	}
 
   #infobox{
  	position:absolute;
@@ -49,11 +58,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
   <script>
 
-	  var height = 500,
-          width = 970,
+	  var height = 700,
+          width = 1500,
           projection = d3.geo.albersUsa()
-				   .translate([640, height/2])    // translate to center of screen
-				   .scale([900]);          // scale things down so see entire US
+				   .translate([900, height/2])    // translate to center of screen
+				   .scale([1300]);          // scale things down so see entire US
 
       // Special d3 helper that converts geo coordinates to paths
       // based on a projection
@@ -117,7 +126,9 @@
 		d3.json("data/us-states.json", function(json) {
 			for (var i = 0; i < data.length; i++) {
 				// Grab State Name
-				var dataState = data[i].state
+				var dataState = data[i].state;
+				var siglas = data[i].siglas;
+
 				// Grab data value
 				winnerName = "gola";
 
@@ -148,10 +159,11 @@
 				// Find the corresponding state inside the GeoJSON
 				for (var j = 0; j < json.features.length; j++)  {
 					var jsonState = json.features[j].properties.name;
-
+					
 					if (dataState == jsonState) {
 						// Copy the data value into the JSON
 						json.features[j].properties.winner = winnerName;
+						json.features[j].properties.siglas = siglas;
 						// Stop looking through the JSON
 						break;
 						}
@@ -167,12 +179,31 @@
 				.attr('id',function(d){return d.id})
 				.style("stroke", "#fff")
 				.style("stroke-width", "1")
-        .on("click",infobox)
+        		.on("click",infobox)
 				.attr("fill", function(d) {
           if (d.properties.winner == undefined)
           return "#000000";
           else return ordinal(d.properties.winner);
 				});
+
+			map.selectAll("text")
+			    .data(json.features)
+			    .enter()
+			    .append("svg:text")
+			    .text(function(d){
+			        return d.properties.siglas;
+			    })
+			    .attr("x", function(d){
+			        return path.centroid(d)[0];
+			    })
+			    .attr("y", function(d){
+			        return  path.centroid(d)[1];
+			    })
+			    .attr("text-anchor","middle")
+			    .attr('font-size','1em')
+			    .attr('font-family', 'Helvetica, Arial, sans-serif')
+			    .attr('color','#000');
+
 
 		});
 
