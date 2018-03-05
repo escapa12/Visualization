@@ -18,10 +18,10 @@
 
   #infobox{
  	position:absolute;
-   height:250px;
- 	width:340px;
- 	top:650px;
- 	left:150px;
+   height:200px;
+ 	width:300px;
+ 	top:370px;
+ 	left:8px;
  	z-index: 2;
  	background:#ddf;
  	color:#000;
@@ -33,7 +33,7 @@
      border-color: #ccc;
   }
   #infobox dt {
- 	float:left;
+ 	float : left;
   }
 
   </style>
@@ -50,9 +50,9 @@
   <script>
 
 	  var height = 500,
-          width = 860,
+          width = 970,
           projection = d3.geo.albersUsa()
-				   .translate([500, height/2])    // translate to center of screen
+				   .translate([640, height/2])    // translate to center of screen
 				   .scale([900]);          // scale things down so see entire US
 
       // Special d3 helper that converts geo coordinates to paths
@@ -100,7 +100,9 @@
 			d['area_name'] = d['area_name'],
 			d['poblacio'] = +d['PST045214'],
       d['educacio']=+d['EDU635213'],
-      d['income']=+d['INC910213'];
+      d['income']=+d['INC910213'],
+      d['pobresa'] = +d['PVY020213'],
+      d['pob_mile'] = +d['POP060210'];
 		});
 		dataKV = dataset.reduce(function(res,el) {
 			res[el.area_name] = el;
@@ -117,7 +119,7 @@
 				// Grab State Name
 				var dataState = data[i].state
 				// Grab data value
-				winnerName = "";
+				winnerName = "gola";
 
 				if (+data[i].Bernie_Sanders > +data[i].Hillary_Clinton && +data[i].Bernie_Sanders > +data[i].Donald_Trump&& +data[i].Bernie_Sanders > +data[i].John_Kasich && +data[i].Bernie_Sanders > +data[i].Marco_Rubio && +data[i].Bernie_Sanders > +data[i].Ted_Cruz && +data[i].Bernie_Sanders > +data[i].Ben_Carson) {
 					winnerName = "Bernie_Sanders";
@@ -167,7 +169,9 @@
 				.style("stroke-width", "1")
         .on("click",infobox)
 				.attr("fill", function(d) {
-					return ordinal(d.properties.winner);
+          if (d.properties.winner == undefined)
+          return "#000000";
+          else return ordinal(d.properties.winner);
 				});
 
 		});
@@ -179,12 +183,17 @@
 		  div.style.background="#ddf";
 		  div.innerHTML = '<h2>'+d.properties.name+'</h2>'+
 		                  '<dl>'+
-						  '<dt>High school graduate or higher : </dt>'+
-						  '<dd> '+dataKV[d.properties.name].educacio+'%</dd>'+
-						  '<dt>Inhabitants: </dt>'+
+              '<dt>Inhabitants : </dt>'+
 						  '<dd>'+dataKV[d.properties.name].poblacio+'</dd>'+
-              '<dt>Income: </dt>'+
+              '<dt>Population density : </dt>'+
+              '<dd>'+dataKV[d.properties.name].pob_mile+'(pers/mi^2)</dd>'+
+              '<dt>High school graduate or higher : </dt>'+
+						  '<dd> '+dataKV[d.properties.name].educacio+'%</dd>'+
+              '<dt>Per capita money income : </dt>'+
               '<dd>'+dataKV[d.properties.name].income+'$</dd>'+
+              '<dt>Persons below poverty level : </dt>'+
+              '<dd>'+dataKV[d.properties.name].pobresa+'%</d>'+
+
               '</dl>';
 		};
 
