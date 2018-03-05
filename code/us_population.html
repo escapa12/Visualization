@@ -87,7 +87,7 @@
 	  d3.queue()
 		.defer(d3.json,"data/cb_2016_us_county_5m.topojson")
     // .defer(d3.json,"data/cb_2016_us_county_500k.topojson")
-		.defer(d3.csv,"data/county_facts.csv")
+		.defer(d3.csv,"data/demographic_data.csv")
 		.await(function(error,topo,data){ //this will await in queue
 			process(topo,data)			//topo for topographic info, data for metadata
 
@@ -151,7 +151,7 @@
 					.data(comarques.features);
 
         function zoomed(){
-    			map.attr("transform",d3.event.transform);}
+    			map.attr("transform",d3.event.transform)};
 
             //Enter
             catalonia.enter()
@@ -170,7 +170,8 @@
 						  '<dt>Code: </dt>'+
 						  '<dd>'+dataKV[d.id].fips+'</dd>'+
 						  '<dt>Inhabitants: </dt>'+
-						  '<dd>'+dataKV[d.id].poblacio+'</dd>';
+						  '<dd>'+dataKV[d.id].poblacio+'</dd>'+
+              '</dl>';
 		};
 
 
