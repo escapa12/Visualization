@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <!-- World,367617908.57000005,468683691.65000004,623260572.47,465272821.99 -->
+<html>
+
 <meta charset="utf-8">
 <style>
 
@@ -9,7 +11,7 @@ svg {
 
 
 .bar {
-  fill: steelblue;
+  fill: green;
   clip-path: url(#clip);
 }
 
@@ -58,10 +60,10 @@ function getRandomArbitrary(min, max) {
 var dataset
 d3.csv("profit_country_year.csv", function(data) {
   data.forEach(function(d) {
-    d['2004'] = +d['2004'];
-    d['2005'] = +d['2005'];
-    d['2006'] = +d['2006'];
-    d['2007'] = +d['2007'];
+    d['2004'] = +d['2004']/1000000;
+    d['2005'] = +d['2005']/1000000;
+    d['2006'] = +d['2006']/1000000;
+    d['2007'] = +d['2007']/1000000;
   });
   data.sort(function(x, y){
    return d3.descending(x['2006'], y['2006']);
@@ -98,6 +100,10 @@ var yAxis  = d3.svg.axis().scale(yscale).orient("left");
 var svg = d3.select("body").append("svg")
 						.attr("width", width + margin.left + margin.right)
             .attr("height", height + margin.top + margin.bottom + selectorHeight);
+        svg.append("text")
+            .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
+            .attr("transform", "translate("+ (30) +","+(200)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+            .text("Million €");
 
 var diagram = svg.append("g")
 								 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -207,3 +213,5 @@ function display () {
 };
 })
 </script>
+</body>
+</html>
