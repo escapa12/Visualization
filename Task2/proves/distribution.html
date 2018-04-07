@@ -143,13 +143,13 @@ d3.csv("profit_country_year.csv", function(data) {
 })
 var box = document.querySelector('div#grid-1-1');
 var widthINI = box.offsetWidth;
-
+var heightINI = 240
 
 var margin =  {top: 20, right: 10, bottom: 20, left: 70};
 var marginOverview = {top: 30, right: 10, bottom: 20, left: 40};
 var selectorHeight = 40;
 var width = widthINI - margin.left - margin.right;
-var height = 400 - margin.top - margin.bottom - selectorHeight;
+var height = heightINI - margin.top - margin.bottom - selectorHeight;
 var heightOverview = 80 - marginOverview.top - marginOverview.bottom;
 
 var maxLength = d3.max(data.map(function(d){ return d.Country.length}))
@@ -179,7 +179,7 @@ var svg = d3.select("#grid-1-1").append("svg")
             .attr("height", height + margin.top + margin.bottom + selectorHeight);
         svg.append("text")
             .attr("text-anchor", "middle")  // this makes it easy to centre the text as the transform is applied to the anchor
-            .attr("transform", "translate("+ (30) +","+(200)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
+            .attr("transform", "translate("+ (30) +","+(heightINI/2)+")rotate(-90)")  // text is drawn off the screen top left, move down and out and rotate
             .text("Million €");
 
 var diagram = svg.append("g")
@@ -327,7 +327,12 @@ function display () {
             Cell Title
           </div>
           <div class="chart-stage">
-            <img data-src="holder.js/100%x120/white">
+            <!-- <img data-src="holder.js/100%x120/white"> -->
+<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
+
+<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
           </div>
           <div class="chart-notes">
             Notes about this chart
