@@ -67,7 +67,7 @@
       <div class="col-sm-8">
         <div class="chart-wrapper">
           <div class="chart-title">
-            TOTAL BENEFIT BY COUNTYS (MILLION €)
+            TOTAL BENEFIT BY COUNTRIES IN THE LAST 4 YEARS (MILLION €)
           </div>
           <div class="chart-stage">
             <div id="grid-1-1">
@@ -136,7 +136,7 @@
           <div class="chart-title">
             MOST PROFIT PRODUCTS
           </div>
-          <div class="chart-stage">
+          <div id="chart-stage">
 <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
             <!-- <img data-src="holder.js/100%x120/white"> -->
             <div id="table"></div>
@@ -144,9 +144,9 @@
             <script src="js/table.js"></script>
             <link rel='stylesheet' href='css/table.css'>
             <script>
-            var chart = document.getElementById("table");
-            var width = chart.offsetWidth;
-            var height = chart.offsetHeight;
+            var chart = document.getElementById("chart-stage");
+            var width = chart.offsetWidth-10;
+            var height = chart.offsetHeight-10;
             var valueFunc = function(data) { return data.value; }
             var textFunc = function(data) { return data.fullname; }
             ;
