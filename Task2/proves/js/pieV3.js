@@ -55,8 +55,8 @@ var dades = [
 ]
 console.log(dades);
 
-var w = 400;
-var h = 400;
+var w = 200;
+var h = 200;
 var r = h/2;
 var aColor = ["#2383c1","#64a61f","#7b6788","#a05c56","#961919","#e98125","#d8d239"]
 
@@ -84,8 +84,8 @@ arcs.append("svg:text")
         d.outerRadius = r;
         return "translate(" + arc.centroid(d) + ")";}
     )
-    .attr("text-anchor", "middle")
-    .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
+    // .attr("text-anchor", "middle")
+    // .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
 
 
 var vis2 = d3.select('#chart').append("svg:svg").attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
@@ -95,7 +95,7 @@ var legendG = vis2.selectAll(".legend") // note appending it to mySvg and not sv
   .data(pie(dades))
   .enter().append("g")
   .attr("transform", function(d,i){
-    return "translate(" + (-160) + "," + (i * 20 -40) + ")"; // place each legend on the right and bump each one down 15 pixels
+    return "translate(" + (-60) + "," + (i * 20 -60) + ")"; // place each legend on the right and bump each one down 15 pixels
   })
   .attr("class", "legend");
 
@@ -109,9 +109,11 @@ legendG.append("rect") // make a matching color rect
 
 legendG.append("text") // add the text
   .text(function(d){
-    return  " " +" "+ d.data.label;
+    console.log(d);
+
+    return  " " +" "+ d.data.label+" ("+Math.round(d.data.value/total*10000)/100+"%)";
   })
-  .style("font-size", 12)
+  .style("font-size", 14)
   .attr("y", 10)
   .attr("x", 11);
 

@@ -166,4 +166,4 @@ function display () {
 };
 })
 }
-func_barchar("profit_country_year.csv")
+// func_barchar("profit_country_year.csv")

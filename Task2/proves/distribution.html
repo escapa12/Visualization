@@ -67,7 +67,7 @@
       <div class="col-sm-8">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Benefit by country in million euros
+            TOTAL BENEFIT BY COUNTYS (MILLION €)
           </div>
           <div class="chart-stage">
             <div id="grid-1-1">
@@ -77,6 +77,9 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/bar.js"></script>
 <link rel='stylesheet' href='css/style_bar.css'>
+          <script>
+          func_barchar("profit_country_year.csv")
+          </script>
 
 <!--1++++++++++++++++++++++++++++++++++++++++++++++++++++++++1  -->
               <!-- <img data-src="holder.js/100%x240/white/text:#grid-1-1"> -->
@@ -90,11 +93,20 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            TYPE ORDER
           </div>
           <div class="chart-stage">
-            <img data-src="holder.js/100%x240/white">
-
+            <!-- <img data-src="holder.js/100%x240/white"> -->
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <div id="chart"></div>
+            <script src='js/pieV3.js'></script>
+            <script>
+            pais=12
+            piefunction(pais)
+            </script>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
           </div>
           <div class="chart-notes">
             Notes about this chart
@@ -107,20 +119,11 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            TYPE ORDER
+            Cell title
           </div>
           <div class="chart-stage">
-            <!-- <img data-src="holder.js/100%x120/white"> -->
-<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
-<script src="http://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
-<div id="chart"></div>
-<script src='js/pieV3.js'></script>
-<script>
-pais=12
-piefunction(pais)
-</script>
-<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <img data-src="holder.js/100%x120/white">
+
 
           </div>
           <div class="chart-notes">
