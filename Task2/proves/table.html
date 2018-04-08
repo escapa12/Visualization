@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<!-- <body> -->
+
+<div id="table">
+
+</div>
+<!-- </body> -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="js/table.js"></script>
+<link rel='stylesheet' href='css/table.css'>
+<script>
+var chart = document.getElementById("table");
+var width = chart.offsetWidth;
+var height = chart.offsetHeight;
+var valueFunc = function(data) { return data.value; }
+var textFunc = function(data) { return data.fullname; }
+;
+d3.json("product_benefit_country.json",function(testdata){
+
+  var votesData=[]
+  pais='Australia'
+  data=testdata[pais]
+    Object.keys(data).forEach(function(key){
+      test={};
+      test.fullname=key;
+      test.value=Math.round(+data[key]*1000)/1000;
+      votesData.push(test)
+    });
+  console.log(votesData);
+  var columns = ["Products ("+pais+')', "    Benefit (M €)"]
+drawTable(votesData, "#table", { width: width, height: height }, valueFunc, textFunc, columns);});
+
+
+// d3.json("data.json", function(mydata) {
+//   console.log(mydata);
+//   drawTable(mydata, "#table", { width: width, height: height }, valueFunc, textFunc, columns);
+// });
+</script>
+</body>
+</html>

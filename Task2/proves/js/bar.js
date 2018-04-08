@@ -37,7 +37,7 @@ var isScrollDisplayed = barWidth * data.length > width;
 
 
 console.log(isScrollDisplayed)
-
+console.log(data)
 
 var xscale = d3.scale.ordinal()
                 .domain(data.slice(0,numBars).map(function (d) { return d.Country; }))
@@ -166,4 +166,4 @@ function display () {
 };
 })
 }
-func_barchar("profit_country_year.csv")
+// func_barchar("profit_country_year.csv")

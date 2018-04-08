@@ -67,7 +67,7 @@
       <div class="col-sm-8">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Benefit by country in million euros
+            TOTAL BENEFIT BY COUNTRIES IN THE LAST 4 YEARS (MILLION €)
           </div>
           <div class="chart-stage">
             <div id="grid-1-1">
@@ -77,6 +77,9 @@
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="js/bar.js"></script>
 <link rel='stylesheet' href='css/style_bar.css'>
+          <script>
+          func_barchar("profit_country_year.csv")
+          </script>
 
 <!--1++++++++++++++++++++++++++++++++++++++++++++++++++++++++1  -->
               <!-- <img data-src="holder.js/100%x240/white/text:#grid-1-1"> -->
@@ -90,11 +93,20 @@
       <div class="col-sm-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            TYPE ORDER SALES IN THE SELECTED COUNTRY
           </div>
           <div class="chart-stage">
-            <img data-src="holder.js/100%x240/white">
-
+            <!-- <img data-src="holder.js/100%x240/white"> -->
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <div id="chart"></div>
+            <script src='js/pieV3.js'></script>
+            <script>
+            pais=12
+            piefunction(pais)
+            </script>
+            <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
           </div>
           <div class="chart-notes">
             Notes about this chart
@@ -107,13 +119,11 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            Cell title
           </div>
           <div class="chart-stage">
             <img data-src="holder.js/100%x120/white">
-<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
-<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
           </div>
           <div class="chart-notes">
@@ -124,10 +134,46 @@
       <div class="col-sm-6 col-md-4">
         <div class="chart-wrapper">
           <div class="chart-title">
-            Cell Title
+            MOST PROFIT PRODUCTS
           </div>
-          <div class="chart-stage">
-            <img data-src="holder.js/100%x120/white">
+          <div id="chart-stage">
+<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+            <!-- <img data-src="holder.js/100%x120/white"> -->
+            <div id="table"></div>
+            <script src="http://d3js.org/d3.v3.min.js"></script>
+            <script src="js/table.js"></script>
+            <link rel='stylesheet' href='css/table.css'>
+            <script>
+            var chart = document.getElementById("chart-stage");
+            var width = chart.offsetWidth-10;
+            var height = chart.offsetHeight-10;
+            var valueFunc = function(data) { return data.value; }
+            var textFunc = function(data) { return data.fullname; }
+            ;
+            d3.json("product_benefit_country.json",function(testdata){
+
+              var votesData=[]
+              pais='Australia'
+              data=testdata[pais]
+                Object.keys(data).forEach(function(key){
+                  test={};
+                  test.fullname=key;
+                  test.value=Math.round(+data[key]*1000)/1000;
+                  votesData.push(test)
+                });
+              console.log(votesData);
+              var columns = ["Products ("+pais+')', "    Benefit (M €)"]
+            drawTable(votesData, "#table", { width: width, height: height }, valueFunc, textFunc, columns);});
+
+
+            // d3.json("data.json", function(mydata) {
+            //   console.log(mydata);
+            //   drawTable(mydata, "#table", { width: width, height: height }, valueFunc, textFunc, columns);
+            // });
+            </script>
+
+<!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+
           </div>
           <div class="chart-notes">
             Notes about this chart
