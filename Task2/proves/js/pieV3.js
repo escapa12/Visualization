@@ -24,8 +24,8 @@ function (data) {
 }
 
 // var Npais=21;
-console.log(pais_seleccio)
-console.log(Npais)
+// console.log(pais_seleccio)
+// console.log(Npais)
 var dades = [
 {	"label": "Telephone",
   "value": data[Npais].telephone
@@ -56,10 +56,10 @@ var dades = [
   "value": data[Npais].fax
 }
 ]
-console.log('hola');
-console.log(Npais);
-console.log(data);
-console.log(dades);
+// console.log('hola');
+// console.log(Npais);
+// console.log(data);
+// console.log(dades);
 
 var w = 200;
 var h = 200;

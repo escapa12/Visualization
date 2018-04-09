@@ -1,3 +1,13 @@
+
+
+
+
+// d3.json("data.json", function(mydata) {
+//   console.log(mydata);
+//   drawTable(mydata, "#table", { width: width, height: height }, valueFunc, textFunc, columns);
+// });
+
+
 ﻿
 function drawTable(data, tableid, dimensions, valueFunc, textFunc, columns) {
 
