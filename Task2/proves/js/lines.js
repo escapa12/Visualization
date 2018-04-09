@@ -16,7 +16,7 @@ d3.json("revenue.json", function(data) {
     parent: '#multiple',
     all_series: sub_data,
     x_axis_text: "year",
-    y_axis_text: "euros (€)"
+    y_axis_text: "Milion €"
   });
   lc.plot();
 })
