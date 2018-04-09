@@ -97,8 +97,8 @@
             <script src='js/d3-line-chart.js'></script>
             <script src='js/lines.js'></script>
             <script>
-            pais=12
-            piefunction(pais)
+            // pais=12
+            piefunction(current_country)
             </script>
             <!--  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
           </div>
@@ -143,9 +143,8 @@
             var textFunc = function(data) { return data.fullname; }
             ;
             d3.json("product_benefit_country.json",function(testdata){
-
               var votesData=[]
-              pais='Australia'
+              pais=current_country
               data=testdata[pais]
                 Object.keys(data).forEach(function(key){
                   test={};
@@ -204,6 +203,9 @@
               <option value="Spain">Spain</option>
               <option value="Brazil">Brazil</option>
               <option value="Switzerland">Switzerland</option>
+              <!-- <option value="World">World</option> -->
+
+              </option>
 
               </select>
             </p>

@@ -1,4 +1,4 @@
-function piefunction (Npais){
+function piefunction (pais_seleccio){
 
 
 d3.csv("order_country_year.csv", function(d) {
@@ -14,15 +14,18 @@ d3.csv("order_country_year.csv", function(d) {
 };
 },
 function (data) {
-  /*console.log(pais);
- var Npais=21; // 21= World
- for (i = 0; i < 21; i++){
-    if(pais==data[i].state){
+
+ // var Npais=21; // 21= World
+ for (i = 0; i < 22; i++){
+    if(pais_seleccio==data[i].state){
         Npais=i;
+
     }
-}*/
+}
 
 // var Npais=21;
+console.log(pais_seleccio)
+console.log(Npais)
 var dades = [
 {	"label": "Telephone",
   "value": data[Npais].telephone
@@ -53,6 +56,9 @@ var dades = [
   "value": data[Npais].fax
 }
 ]
+console.log('hola');
+console.log(Npais);
+console.log(data);
 console.log(dades);
 
 var w = 200;
