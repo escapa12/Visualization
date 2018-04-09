@@ -115,14 +115,18 @@ legendG.append("rect") // make a matching color rect
 
 legendG.append("text") // add the text
   .text(function(d){
-    console.log(d);
-
-    return  " " +" "+ d.data.label+" ("+Math.round(d.data.value/total*10000)/100+"%)";
+    return  " " +" "+ d.data.label;
   })
   .style("font-size", 14)
   .attr("y", 10)
   .attr("x", 11);
 
-
+legendG.append("text") // add the text
+  .text(function(d){
+    return "("+Math.round(d.data.value/total*10000)/100+"%)";
+  })
+  .style("font-size", 14)
+  .attr("y", 10)
+  .attr("x", 65);
 });
 }
