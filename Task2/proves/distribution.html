@@ -216,39 +216,12 @@
     //Refresh
     document.getElementById('multiple').innerHTML = "";
     plot_lines();
-  }
-  notEmpty()
 
-      document.getElementById("field_6").onchange = notEmpty;
-
-</script>
-<script>
-
-  function notEmpty(){
-    var e = document.getElementById("field_6");
-    var strUser = e.options[e.selectedIndex].value;
-    current_country = e.options[e.selectedIndex].value
-    console.log(current_country)
-    document.getElementById('current_country').innerHTML = strUser;
 
     //Refresh
     document.getElementById('table').innerHTML = "";
     plot_table();
-  }
-  notEmpty()
-
-      document.getElementById("field_6").onchange = notEmpty;
-
-</script>
-<script>
-
-  function notEmpty(){
-    var e = document.getElementById("field_6");
-    var strUser = e.options[e.selectedIndex].value;
-    current_country = e.options[e.selectedIndex].value
-    console.log(current_country)
-    document.getElementById('current_country').innerHTML = strUser;
-
+    
     //Refresh
     document.getElementById('chart').innerHTML = "";
     piefunction(current_country);
