@@ -64,7 +64,7 @@ var dades = [
 var w = 200;
 var h = 200;
 var r = h/2;
-var aColor = ["#2383c1","#64a61f","#7b6788","#a05c56","#961919","#e98125","#d8d239"]
+var aColor = ["#ff0000","#a05c56","#961919","#e98125","#64a61f","#2383c1","#d8d239"]
 
 
 var vis = d3.select('#chart').append("svg:svg").data([dades]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
@@ -72,7 +72,7 @@ var vis = d3.select('#chart').append("svg:svg").data([dades]).attr("width", w).a
 var pie = d3.layout.pie().value(function(d){return d.value;});
 
 // Declare an arc generator function
-var arc = d3.svg.arc().outerRadius(r);
+var arc = d3.svg.arc().outerRadius(r).innerRadius(r/1.5);
 
 // Select paths, use arc generator to draw
 var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
