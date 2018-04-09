@@ -72,14 +72,17 @@ var vis = d3.select('#chart').append("svg:svg").data([dades]).attr("width", w).a
 var pie = d3.layout.pie().value(function(d){return d.value;});
 
 // Declare an arc generator function
-var arc = d3.svg.arc().outerRadius(r).innerRadius(r/1.5);
+var arc = d3.svg.arc().outerRadius(r).innerRadius(r/1.75);
 
 // Select paths, use arc generator to draw
 var arcs = vis.selectAll("g.slice").data(pie).enter().append("svg:g").attr("class", "slice");
 arcs.append("svg:path")
     .attr("fill", function(d, i){return aColor[i];})
     .attr("d", function (d) {return arc(d);})
+    .on("mouseover",mousein)
+    .on("mouseout",mouseout)
 ;
+
 
 var total= 0
 for (i =0; i<7;i++){total = total + dades[i].value }
@@ -93,8 +96,19 @@ arcs.append("svg:text")
     // .attr("text-anchor", "middle")
     // .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
 
+vis.append("text").attr("id","pie_centre").text(pais_seleccio).style("font-size", 12).attr("transform","translate(-20,0)");
+function mousein(d){
+  console.log('adeeu');
 
+  console.log(d);
+vis.select("#pie_centre").text(d.data.label+": "+String(Math.round(d.value/total*10000)/100+"%")).attr("transform","translate(-40,0)");
+}
+function mouseout(d){
+vis.select("#pie_centre").text(pais_seleccio).attr("transform","translate(-20,0)") ;
+
+}
 var vis2 = d3.select('#chart').append("svg:svg").attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+
 
 
 var legendG = vis2.selectAll(".legend") // note appending it to mySvg and not svg to make positioning easier
