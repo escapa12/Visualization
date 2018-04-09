@@ -137,7 +137,7 @@ legendG.append("text") // add the text
 
 legendG.append("text") // add the text
   .text(function(d){
-    return "("+Math.round(d.data.value/total*10000)/100+"%)";
+    return " - "+Math.round(d.data.value/total*10000)/100+"%";
   })
   .style("font-size", 14)
   .attr("y", 10)
