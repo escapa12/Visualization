@@ -1,0 +1,8 @@
+Work with trees
+ecode the most possible things on the nodes: color, etc
+
+Audience: public in general
+
+Do no write the answers as a list
+
+(think about doing a bullet chart)
