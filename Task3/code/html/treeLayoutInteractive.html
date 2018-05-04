@@ -14,11 +14,11 @@
 	<svg id="colorLegend"></svg><!-- svg container to hold the color legend -->
 	<script>
 		var treeChart=TreeLayout()
-			.width(900)
-			.height(500)
+			.width(1300)
+			.height(700)
 			.zLegend("Graph key")
 
-	    d3.json("/home/enric/Desktop/master/visualization/gitviz/Visualization/Task3/code/data/json_data_Spain2007.json", function(error, mydata) {
+	    d3.json("../data/json_data_Spain2007.json", function(error, mydata) {
 			d3.select("#tree")
 				.datum(mydata)
 				.call(treeChart);

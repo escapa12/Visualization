@@ -16,6 +16,11 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 		duration = 700,  //transition duration
 		zScale = d3.scaleOrdinal(d3.schemeCategory20);
 
+	function getColor(value){
+	    //value from 0 to 1
+	    var hue=(180+(value)*60).toString(10);
+	    return ["hsl(",hue,",75%,40%)"].join("");
+	}
 
 	/*************** end initial settings ****************/
 
@@ -61,7 +66,7 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 		/*********** scales ****************************************/
 
 		zScale
-			.domain(["leaf","internal"])
+			.domain(["Best seller","Worst seller"])
 
 
 		/*********** end of scales *********************************/
@@ -125,11 +130,13 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 			.append('circle')
 				.attr("id",function(d) {return d.data.name;})
 				.classed(function(d) {return d.children || d._children ? "internal" : "leaf";},true)
-				.attr('r', 10)
-				// .attr('r',function(d) {return d.data.value;})
-				.attr("fill",function(d) {return d.children || d._children ? zScale("internal") : zScale("leaf");});
+				// .attr('r', 10)
+				.attr('r',function(d) {return Math.max(30*Math.sqrt(d.data.Profit),2);})
+				// .attr("fill",function(d) {return d.children || d._children ? zScale("internal") : zScale("leaf");});
+				.attr("fill",function(d) {return getColor(d.data.Quantity_sold)})
+				// .attr("fill",function(d) {return getColor(Math.abs(1-Math.min(+d.data.Quantity_sold+0.5,1)))})
 
-
+		// console.log(data.Quantity_sold)
 		//Labels enter
 		nodeEnter
 			.append('text')
@@ -153,7 +160,7 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 	  // Update the node attributes and style
 	  nodeUpdate.select('circle.node')
 		.attr('r', 10)
-		// .attr('r',function(d) {return d.data.value;})
+		// .attr('r',function(d) {return d.data.Quantity_sold;})
 		.style("fill", function(d) {return d._children ?
 									zScale("internal") : zScale("leaf");})
 		.attr('cursor', 'pointer');
@@ -235,12 +242,12 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 
 		var legendOrdinal = d3.legendColor()
 			.shapePadding(5)
-			.scale(zScale)
-			.title(zLegend)
-			.labelWrap(20)
-			.on("cellclick",legendColorsCellClick())
-			.on("cellover",legendColorsCellOver())
-			.on("cellout",legendColorsCellOut());
+			.scale(zScale);
+			// .title(zLegend)
+			// .labelWrap(20);
+			// .on("cellclick",legendColorsCellClick())
+			// .on("cellover",legendColorsCellOver())
+			// .on("cellout",legendColorsCellOut());
 
 		colorLegendSVG
 		  .call(legendOrdinal);
