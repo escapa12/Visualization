@@ -14,12 +14,19 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 		width,
 		height,
 		duration = 700,  //transition duration
-		zScale = d3.scaleOrdinal(d3.schemeCategory20);
+		// zScale = d3.scaleOrdinal(d3.schemeCategory20);
+		zScale = d3.scaleOrdinal();
+		var ordinalScale = d3.scaleOrdinal()
+			.domain([0,1])
+			.range(['black', 'white']);
+
 
 	function getColor(value){
 	    //value from 0 to 1
-	    var hue=(180+(value)*60).toString(10);
-	    return ["hsl(",hue,",75%,40%)"].join("");
+			// var hue=(180+(value)*60).toString(10);
+	    var hue=(175).toString(10);
+			var tran=(10+(80*value)).toString(10);
+	    return ["hsl(",hue,",100%,",tran,"%)"].join("");
 	}
 
 	/*************** end initial settings ****************/
@@ -159,11 +166,11 @@ https://bl.ocks.org/d3noob/43a860bc0024792f8803bba8ca0d5ecd , https://bl.ocks.or
 
 	  // Update the node attributes and style
 	  nodeUpdate.select('circle.node')
-		.attr('r', 10)
-		// .attr('r',function(d) {return d.data.Quantity_sold;})
-		.style("fill", function(d) {return d._children ?
-									zScale("internal") : zScale("leaf");})
-		.attr('cursor', 'pointer');
+		// .attr('r', 10)
+		.attr('r',function(d) {return d.data.Quantity_sold;});
+		// .style("fill", function(d) {return d._children ?
+		// 							zScale("internal") : zScale("leaf");})
+		// .attr('cursor', 'pointer');
 
 
 		nodeUpdate.select('g.node circle text')

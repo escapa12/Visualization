@@ -10,12 +10,14 @@
 	<link rel="stylesheet" href="../css/treeLayoutInteractive.css" />
 </head>
 <body>
+
+
 	<svg id="tree"></svg><!-- svg container to hold the chart -->
-	<svg id="colorLegend"></svg><!-- svg container to hold the color legend -->
+	 <!-- <svg id="colorLegend"></svg><!-- svg container to hold the color legend -->
 	<script>
 		var treeChart=TreeLayout()
 			.width(1300)
-			.height(700)
+			.height(650)
 			.zLegend("Graph key")
 
 	    d3.json("../data/json_data_Spain2007.json", function(error, mydata) {
