@@ -104,18 +104,16 @@
             TOTAL BENEFIT BY COUNTRIES IN THE LAST 4 YEARS (MILLION €)
           </div>
           <div class="chart-stage">
-            <div id="grid-1-1">
+            <div id="multiple"> </div>
 
 <!--1++++++++++++++++++++++++++++++++++++++++++++++++++++++++1  -->
-
-          <script>
-
-          // func_barchar("profit_country_year.csv")
-          </script>
+          <script src="http://d3js.org/d3.v3.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.5/d3-legend.js"></script>
+            <script src='js/d3-line-chart.js'></script>
+            <script src='js/lines.js'></script>
 
 <!--1++++++++++++++++++++++++++++++++++++++++++++++++++++++++1  -->
               <!-- <img data-src="holder.js/100%x240/white/text:#grid-1-1"> -->
-            </div>
           </div>
 
         </div>
@@ -225,7 +223,7 @@
 
     //Refresh
     document.getElementById('multiple').innerHTML = "";
-    // plot_lines();
+     plot_lines();
 
 
     //Refresh
