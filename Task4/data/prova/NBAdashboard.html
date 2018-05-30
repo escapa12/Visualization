@@ -18,6 +18,9 @@
     Holder.add_theme("white", { background:"#fff", foreground:"#a7a7a7", size:10 });
   </script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/country-region-dropdown-menu/1.2.1/geodatasource-cr.min.js" type="text/javascript"></script>
+<!-- Loading victories vs losses graph statics -->
+<script src='js/victories_vs_losses.js'></script>
+<link rel="stylesheet" type="text/css" href="css/victories_vs_losses.css" />
 
   <!-- keen-analysis@1.2.2 -->
   <script src="https://d26b395fwzu5fz.cloudfront.net/keen-analysis-1.2.2.js" type="text/javascript"></script>
@@ -104,7 +107,7 @@
             TOTAL BENEFIT BY COUNTRIES IN THE LAST 4 YEARS (MILLION €)
           </div>
           <div class="chart-stage">
-            <div id="grid-1-1">
+            <div id="victoriesvslosses">
 
 <!--1++++++++++++++++++++++++++++++++++++++++++++++++++++++++1  -->
 
@@ -229,8 +232,8 @@
 
 
     //Refresh
-    document.getElementById('table').innerHTML = "";
-    // plot_table();
+    document.getElementById('victoriesvslosses').innerHTML = "";
+    victoriesvslosses(current_franch);
 
     //Refresh
     document.getElementById('chart').innerHTML = "";
