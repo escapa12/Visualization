@@ -33,7 +33,7 @@ var RadarChart = {
 	var total = allAxis.length;
 	var radius = cfg.factor*Math.min(cfg.w/2, cfg.h/2);
 
-  var Format = d3.format('.2f');
+  var Format = d3.format('d');
 
 	d3.select(id).select("svg").remove();
 
