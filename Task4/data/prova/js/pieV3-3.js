@@ -29,8 +29,8 @@ var dades = [
 ]
 
 
-var w = 180;
-var h = 180;
+var w = 140;
+var h = 140;
 var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
 

@@ -1,205 +1,247 @@
-var data = [
-  {
-    name: "USA",
-    values: [
-      {date: "2000", price: "100"},
-      {date: "2001", price: "110"},
-      {date: "2002", price: "145"},
-      {date: "2003", price: "241"},
-      {date: "2004", price: "101"},
-      {date: "2005", price: "90"},
-      {date: "2006", price: "10"},
-      {date: "2007", price: "35"},
-      {date: "2008", price: "21"},
-      {date: "2009", price: "201"}
-    ]
-  },
-  {
-    name: "Canada",
-    values: [
-      {date: "2000", price: "200"},
-      {date: "2001", price: "120"},
-      {date: "2002", price: "33"},
-      {date: "2003", price: "21"},
-      {date: "2004", price: "51"},
-      {date: "2005", price: "190"},
-      {date: "2006", price: "120"},
-      {date: "2007", price: "85"},
-      {date: "2008", price: "221"},
-      {date: "2009", price: "101"}
-    ]
-  },
-  {
-    name: "Maxico",
-    values: [
-      {date: "2000", price: "50"},
-      {date: "2001", price: "10"},
-      {date: "2002", price: "5"},
-      {date: "2003", price: "71"},
-      {date: "2004", price: "20"},
-      {date: "2005", price: "9"},
-      {date: "2006", price: "220"},
-      {date: "2007", price: "235"},
-      {date: "2008", price: "61"},
-      {date: "2009", price: "10"}
-    ]
+(function (root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(['d3-line-chart'], factory);
+  } else if (typeof exports === 'object') {
+    module.exports = factory(require('d3'));
+  } else {
+    root.LineChart = factory(root.d3);
   }
-];
+}(this, function(d3) {
+  function LineChart(opts) {
+    opts = opts || {};
+    var lc = {
+      id: opts.id,
+      parent: opts.parent || 'body',
+      class: 'd3-line-chart',
+      all_series: opts.all_series,
+      graph_width: opts.graph_width || 200,
+      graph_height: opts.graph_height || 285,
+      margin: opts.margin || {top: 50, right: 150, bottom: 30, left: 30},
+      x_axis_text: opts.x_axis_text || 'x-axis',
+      y_axis_text: opts.y_axis_text || 'y-axis',
+      x_parse: opts.x_parse || function(d) { return d; },
+      y_parse: opts.y_parse || function(d) { return d; },
+      x_scale: opts.x_scale || d3.scale.linear(),
+      y_scale: opts.y_scale || d3.scale.linear(),
+      tooltip: opts.tooltip || function(div, point) {
+        div.select(".title").text(lc.x_axis_text + ': ' + point.x);
+        div.select(".desc").text(point.y);
+      }
+    };
 
-var width = 500;
-var height = 300;
-var margin = 50;
-var duration = 250;
+    lc.width = lc.graph_width - lc.margin.left - lc.margin.right;
+    lc.height = lc.graph_height - lc.margin.top - lc.margin.bottom;
+    lc.x_scale.range([0, lc.width]);
+    lc.y_scale.range([lc.height, 0]);
 
-var lineOpacity = "0.25";
-var lineOpacityHover = "0.85";
-var otherLinesOpacityHover = "0.1";
-var lineStroke = "1.5px";
-var lineStrokeHover = "2.5px";
+    lc.at = function(id) {
+      lc.parent = id || 'body';
+    }
 
-var circleOpacity = '0.85';
-var circleOpacityOnLineHover = "0.25"
-var circleRadius = 3;
-var circleRadiusHover = 6;
+    lc.parse_using = function(x_parse, y_parse) {
+      lc.x_parse = x_parse || lc.x_parse;
+      lc.y_parse = y_parse || lc.y_parse;
+      return lc;
+    }
 
+    lc.scale_using = function(x_scale, y_scale) {
+      lc.x_scale = x_scale || lc.x_scale;
+      lc.y_scale = y_scale || lc.y_scale;
+      lc.x_scale.range([0, lc.width]);
+      lc.y_scale.range([lc.height, 0]);
+    }
 
-/* Format Data */
-var parseDate = d3.timeParse("%Y");
-data.forEach(function(d) { 
-  d.values.forEach(function(d) {
-    d.date = parseDate(d.date);
-    d.price = +d.price;    
-  });
-});
+    lc.for = function(data) {
+      lc.all_series = data;
+      return lc;
+    }
 
+    lc.addSeries = function(series) {
+      lc.all_series.push(series);
+      return lc;
+    }
 
-/* Scale */
-var xScale = d3.scaleTime()
-  .domain(d3.extent(data[0].values, d => d.date))
-  .range([0, width-margin]);
+    function calculate_domain(lc) {
+      lc.x_scale.domain([
+        d3.min(lc.all_series, function(s) { return d3.min(s.values, function(c) { return c.x }); }),
+        d3.max(lc.all_series, function(s) { return d3.max(s.values, function(c) { return c.x }); })
+        ]);
+      lc.y_scale.domain([
+        d3.min(lc.all_series, function(s) { return d3.min(s.values, function(c) { return c.y }); }),
+        d3.max(lc.all_series, function(s) { return d3.max(s.values, function(c) { return c.y }); })
+        ]);
+    }
 
-var yScale = d3.scaleLinear()
-  .domain([0, d3.max(data[0].values, d => d.price)])
-  .range([height-margin, 0]);
+    function parse_all_data_points(lc) {
+      lc.all_series.forEach(function (data) {
+        data.values.forEach(function(d) {
+          d.x = lc.x_parse(d.x);
+          d.y = lc.y_parse(d.y);
+        });
+      });
+    }
 
-var color = d3.scaleOrdinal(d3.schemeCategory10);
+    function plot_axis(lc) {
+      var xAxis = d3.svg.axis().scale(lc.x_scale).orient("bottom").tickFormat(d3.format("d"));
+      var yAxis = d3.svg.axis().scale(lc.y_scale).orient("left");
 
-/* Add SVG */
-var svg = d3.select("#chart").append("svg")
-  .attr("width", (width+margin)+"px")
-  .attr("height", (height+margin)+"px")
-  .append('g')
-  .attr("transform", `translate(${margin}, ${margin})`);
+      lc.graph.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + lc.height + ")")
+      .call(xAxis)
+      .append("text")
+      .attr("x", lc.width)
+      .attr("y", -10)
+      .style("text-anchor", "end")
+      .text(lc.x_axis_text);
 
-
-/* Add line into SVG */
-var line = d3.line()
-  .x(d => xScale(d.date))
-  .y(d => yScale(d.price));
-
-let lines = svg.append('g')
-  .attr('class', 'lines');
-
-lines.selectAll('.line-group')
-  .data(data).enter()
-  .append('g')
-  .attr('class', 'line-group')  
-  .on("mouseover", function(d, i) {
-      svg.append("text")
-        .attr("class", "title-text")
-        .style("fill", color(i))        
-        .text(d.name)
-        .attr("text-anchor", "middle")
-        .attr("x", (width-margin)/2)
-        .attr("y", 5);
-    })
-  .on("mouseout", function(d) {
-      svg.select(".title-text").remove();
-    })
-  .append('path')
-  .attr('class', 'line')  
-  .attr('d', d => line(d.values))
-  .style('stroke', (d, i) => color(i))
-  .style('opacity', lineOpacity)
-  .on("mouseover", function(d) {
-      d3.selectAll('.line')
-					.style('opacity', otherLinesOpacityHover);
-      d3.selectAll('.circle')
-					.style('opacity', circleOpacityOnLineHover);
-      d3.select(this)
-        .style('opacity', lineOpacityHover)
-        .style("stroke-width", lineStrokeHover)
-        .style("cursor", "pointer");
-    })
-  .on("mouseout", function(d) {
-      d3.selectAll(".line")
-					.style('opacity', lineOpacity);
-      d3.selectAll('.circle')
-					.style('opacity', circleOpacity);
-      d3.select(this)
-        .style("stroke-width", lineStroke)
-        .style("cursor", "none");
-    });
+      lc.graph.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 6)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text(lc.y_axis_text);
 
 
-/* Add circles in the line */
-lines.selectAll("circle-group")
-  .data(data).enter()
-  .append("g")
-  .style("fill", (d, i) => color(i))
-  .selectAll("circle")
-  .data(d => d.values).enter()
-  .append("g")
-  .attr("class", "circle")  
-  .on("mouseover", function(d) {
-      d3.select(this)     
-        .style("cursor", "pointer")
-        .append("text")
-        .attr("class", "text")
-        .text(`${d.price}`)
-        .attr("x", d => xScale(d.date) + 5)
-        .attr("y", d => yScale(d.price) - 10);
-    })
-  .on("mouseout", function(d) {
-      d3.select(this)
-        .style("cursor", "none")  
-        .transition()
-        .duration(duration)
-        .selectAll(".text").remove();
-    })
-  .append("circle")
-  .attr("cx", d => xScale(d.date))
-  .attr("cy", d => yScale(d.price))
-  .attr("r", circleRadius)
-  .style('opacity', circleOpacity)
-  .on("mouseover", function(d) {
-        d3.select(this)
-          .transition()
-          .duration(duration)
-          .attr("r", circleRadiusHover);
+    }
+
+    function build_svg() {
+      var svg = d3.select(lc.parent).append("svg")
+      .attr("id", lc.id)
+      .attr("width", lc.graph_width)
+      .attr("height", lc.graph_height)
+      .append("g")
+      .attr("transform", "translate(" + lc.margin.left + "," + lc.margin.top + ")");
+      lc.graph = svg;
+    }
+
+    function set_color(lc) {
+      var color = d3.scale.category20();
+      color.domain(lc.all_series.map(function(d) { return d.name }));
+      lc.color = color;
+    }
+
+    function plot_legend(series, index) {
+      var legend = lc.graph.append("g");
+
+      legend.append("text")
+      .attr("class", "legend-text-" + index)
+      .text(series.name)
+      .attr("x", lc.width-100)
+      .attr("y", -26 + index*20);
+
+      legend.append("circle")
+      .attr("class", "legend-circle")
+      .attr("cx", lc.width-110)
+      .attr("cy", -30+index*20)
+      .attr("r", 8)
+      .style("fill", lc.color(index))
+      .on("mouseenter", function(d) {
+        d3.select(this).classed('selected', true);
+        var all_points = d3.selectAll('.commit-circle.' + series.name.replace(/\W/g,'.'));
+        all_points.forEach(function(p) {
+          d3.selectAll(p).classed('selected', true);
+        });
       })
-    .on("mouseout", function(d) {
-        d3.select(this) 
-          .transition()
-          .duration(duration)
-          .attr("r", circleRadius);  
+      .on("mouseleave", function(d) {
+        d3.select(this).classed('selected', false);
+        var all_points = d3.selectAll('.commit-circle.' + series.name.replace(/\W/g,'.'));
+        all_points.forEach(function(p) {
+          d3.selectAll(p).classed('selected', false);
+        });
+      });
+    }
+
+    function plot_line(series, index) {
+      var line = d3.svg.line()
+      .x(function(d) { return lc.x_scale(d.x); })
+      .y(function(d) { return lc.y_scale(d.y); });
+
+      lc.graph.append("path")
+      .attr("class", "line")
+      .attr("d", line(series.values))
+      .style("stroke", lc.color(index));
+    }
+
+    function plot_points(series, index) {
+      var data = series.values;
+      lc.graph.selectAll(".commit-circle-" + index).data(data)
+      .enter().append("g")
+      .append("circle")
+      .attr("class", 'commit-circle')
+      .classed(series.name, true)
+      .attr("cx", function(d) { return lc.x_scale(d.x); })
+      .attr("r", 1)
+      .attr("cy", function(d) { return lc.y_scale(d.y); })
+      .style("stroke", d3.rgb(lc.color(index)))
+      .style("fill", lc.color(index))
+      .on("mouseenter", function(d) {
+        d3.select(this).classed('selected', true);
+        var xPosition = d3.event.pageX + 10;
+        var yPosition = d3.event.pageY;
+        lc.graph.append("text")
+              .attr("class", "title-text")
+              .text(d.y)
+              .attr("text-anchor", "middle")
+              .attr("x", xPosition-90)
+              .attr("y", yPosition-150);
+         
+      })
+      .on("mouseleave", function() {
+        d3.select(this).classed('selected', false);
+        d3.select(".title-text").remove();
       });
 
+    }
 
-/* Add Axis into SVG */
-var xAxis = d3.axisBottom(xScale).ticks(5);
-var yAxis = d3.axisLeft(yScale).ticks(5);
+    
+    function mouse(series,index) {
+      var data = series.values;
+      var mouseG = lc.graph.append("g")
+        .attr("class", "mouse-over-effects");
 
-svg.append("g")
-  .attr("class", "x axis")
-  .attr("transform", `translate(0, ${height-margin})`)
-  .call(xAxis);
+        mouseG.append("path") // this is the black vertical line to follow mouse
+          .attr("class", "mouse-line")
+          .style("stroke", "black")
+          .style("stroke-width", "1px")
+          .style("opacity", "0");
+          
+        var lines = document.getElementsByClassName('line');
 
-svg.append("g")
-  .attr("class", "y axis")
-  .call(yAxis)
-  .append('text')
-  .attr("y", 15)
-  .attr("transform", "rotate(-90)")
-  .attr("fill", "#000")
-  .text("Total values");
+        var mousePerLine = mouseG.selectAll('.mouse-per-line')
+          .data(data)
+          .enter()
+          .append("g")
+          .attr("class", "mouse-per-line");
+
+        mousePerLine.append("circle")
+          .attr("r", 7)
+          .style("stroke",d3.rgb(lc.color(index)).brighter())
+          .style("fill", "none")
+          .style("stroke-width", "1px")
+          .style("opacity", "0");
+
+       
+    }
+
+    lc.plot = function() {
+      build_svg(lc);
+      parse_all_data_points(lc);
+      calculate_domain(lc);
+      set_color(lc);
+      plot_axis(lc);
+      lc.all_series.forEach(function(val, index, array) {
+        plot_legend(val, index);
+        plot_line(val, index);
+        plot_points(val, index);
+        mouse(val,index);
+      });
+    }
+
+    return lc;
+  }
+  return LineChart;
+}));

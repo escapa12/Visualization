@@ -41,7 +41,7 @@ var d = [
 		  ]
 		];
 
-var w = 500,h = 500;
+var w = 300,h = 300;
 
 var colorscale = d3.scale.category10();
 

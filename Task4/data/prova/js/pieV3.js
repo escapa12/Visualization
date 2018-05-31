@@ -30,8 +30,8 @@ var dades = [
 ]
 
 
-var w = 180;
-var h = 180;
+var w = 140;
+var h = 140;
 var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
 
@@ -73,7 +73,7 @@ arcs.append("svg:text")
 
   }
 
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", 50).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie').append("svg:svg").attr("width", 5).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 });
 }
