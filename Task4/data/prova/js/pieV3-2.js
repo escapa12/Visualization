@@ -1,11 +1,12 @@
-function piefunction (franch_seleccio){
+function piefunction2 (franch_seleccio){
 
 
 d3.csv("DataNBA1970.csv", function(d) {
   return {
     franchID : d.franchID,
-    o_fgm: +d.o_fgm,
-    o_fga: +d.o_fga
+    o_ftm: +d.o_ftm,
+    o_fta: +d.o_fta
+
 };
 },
 function (data) {
@@ -16,16 +17,15 @@ function (data) {
     }
 }
 
-// console.log(franch_seleccio)
-// console.log(Nfranch)
+
 var dades = [
 {	"label": "% Field goal made",
-  "value": data[franch].o_fgm/(data[franch].o_fga)*100,
+  "value": data[franch].o_ftm/(data[franch].o_fta)*100,
 },
 
 {
   "label": "% Field Goal missed",
-  "value": 100-(data[franch].o_fgm/data[franch].o_fga*100)
+  "value": 100-(data[franch].o_ftm/data[franch].o_fta*100)
 }
 ]
 
@@ -61,19 +61,22 @@ arcs.append("svg:text")
         d.outerRadius = r;
         return "translate(" + arc.centroid(d) + ")";}
     )
+    // .attr("text-anchor", "middle")
+    // .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
 
+vis.append("text").attr("id","pie_centre").text("Free throws").style("font-size", 13).attr("transform","translate(-35,0)");
+function mousein(d){
 
-  vis.append("text").attr("id","pie_centre").text("Field goals").style("font-size", 13).attr("transform","translate(-35,0)");
-  function mousein(d){
+vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).attr("transform","translate(-20,0)");
+}
+function mouseout(d){
+vis.select("#pie_centre").text("Free throws").attr("transform","translate(-35,0)") ;
 
-  vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).style("font-size", 22).attr("transform","translate(-20,0)");
-  }
-  function mouseout(d){
-  vis.select("#pie_centre").text("Field goal").attr("transform","translate(-35,0)") ;
-
-  }
-
+}
 var vis2 = d3.select('#pie').append("svg:svg").attr("width", 50).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+
+
+
 
 });
 }
