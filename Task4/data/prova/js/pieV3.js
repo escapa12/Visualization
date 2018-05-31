@@ -59,7 +59,7 @@ arcs.append("svg:text")
     .attr("transform", function(d){
         d.innerRadius = 100; /* Distance of label to the center*/
         d.outerRadius = r;
-        return "translate(100,100)";}
+        return "translate(" + arc.centroid(d) + ")";}
     )
 
 

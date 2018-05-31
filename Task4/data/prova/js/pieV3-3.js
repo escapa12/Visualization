@@ -29,7 +29,7 @@ var dades = [
 ]
 
 
-var w = 200;
+var w = 120;
 var h = 120;
 var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
@@ -72,7 +72,7 @@ function mouseout(d){
 vis.select("#pie_centre").text("3 Points").attr("transform","translate(-25,0)") ;
 
 }
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie').append("svg:svg").attr("width", 800).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 
 
@@ -80,7 +80,7 @@ var legendG = vis2.selectAll(".legend") // note appending it to mySvg and not sv
   .data(pie(dades))
   .enter().append("g")
   .attr("transform", function(d,i){
-    return "translate(-50,-10)"; // place each legend on the right and bump each one down 15 pixels
+    return "translate(" + (180) + "," + (i * 20 -30) + ")"; // place each legend on the right and bump each one down 15 pixels
   })
   .attr("class", "legend");
 
@@ -109,4 +109,3 @@ legendG.append("text") // add the text
 //   .attr("x", 65);
 });
 }
-pie
