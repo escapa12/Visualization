@@ -14,7 +14,7 @@
 			parent: opts.parent || 'body',
 			class: 'd3-line-chart',
 			all_series: opts.all_series,
-			graph_width: opts.graph_width || 1000,
+			graph_width: opts.graph_width || 900,
 			graph_height: opts.graph_height || 285,
 			margin: opts.margin || {top: 20, right: 150, bottom: 30, left: 60},
 			x_axis_text: opts.x_axis_text || 'x-axis',

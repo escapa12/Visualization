@@ -6,9 +6,8 @@ d3.json("home_away.json", function(data) {
     if (data[i].name.indexOf(current_franch) != -1) {
       sub_data.push(data[i])
     }
+    console.log(data[i]);
   }
-  var ordinalScale = d3.scale.ordinal()
-          .range(['a', 'b', 'c', 'd', 'e']);
   lc = new LineChart({
     parent: '#multiple',
     all_series: sub_data,
