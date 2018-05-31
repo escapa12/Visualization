@@ -30,8 +30,8 @@ var dades = [
 ]
 
 
-var w = 140;
-var h = 140;
+var w = 120;
+var h = 120;
 var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
 
@@ -59,7 +59,7 @@ arcs.append("svg:text")
     .attr("transform", function(d){
         d.innerRadius = 100; /* Distance of label to the center*/
         d.outerRadius = r;
-        return "translate(" + arc.centroid(d) + ")";}
+        return "translate(100,100)";}
     )
 
 
@@ -73,7 +73,7 @@ arcs.append("svg:text")
 
   }
 
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", 5).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie').append("svg:svg").attr("width", 50).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 });
 }
