@@ -19,5 +19,6 @@ function create_copa(franch_seleccio){
 
     var element = document.getElementById("copa");
     element.appendChild(para);
-    // d3.select("#copa").append("p").text(won)
+    d3.select("#num_compas").remove();
+    d3.select("#copa").append("p").text(won)
   }) }

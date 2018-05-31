@@ -47,10 +47,7 @@
         <script src='js/lligues_guanyades.js'></script>
 
         <img src="imatges/copa_or.jpg">
-        <script>create_copa('CLE') </script>
-        <p>
-          0
-        </p>
+        <p id ='num_compas'>0</p>
       </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -234,6 +231,7 @@
     //Refresh
     document.getElementById('table2').innerHTML = "";
     // plot_table2();
+    create_copa('CLE')
 
     //Refresh
     // document.getElementById('copa').innerHTML = "";
