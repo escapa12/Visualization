@@ -97,7 +97,7 @@ svg.append("g")
     .style("text-anchor", "end")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
-      .attr("transform", "translate(-15,15)rotate(90)");
+      .attr("transform", "translate(-15,20)rotate(90)");
 
 function type(d) {
     d.won = +d.won;
