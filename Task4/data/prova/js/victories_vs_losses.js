@@ -23,28 +23,32 @@ function victoriesvslosses(franch_seleccio){
 
 var margin = {
     top: 50,
-    right: 10,
-    bottom: 10,
-    left: 10
+    right: 15,
+    bottom: 2,
+    left: 15
 },
-width = 250 - margin.left - margin.right,
+width = 220 - margin.left - margin.right,
 height = 900 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
     .range([0, width])
 
 var y = d3.scale.ordinal()
-    .rangeRoundBands([0, height], .2);
+    .rangeRoundBands([0, height], .5);
 
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("top");
 
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("right");
+
 var svg = d3.select("#victoriesvslosses").append("svg")
     .attr("width", height + margin.top + margin.bottom)
     .attr("height", width + margin.left + margin.right)
     .append("g")
-    .attr('transform','translate(300,-10)rotate(-90,0,250)');
+    .attr('transform','translate(300,-50)rotate(-90,0,250)');
 
 x.domain([-82,82])
 y.domain(results.map(function (d) {
@@ -87,12 +91,13 @@ svg.append("g")
     .call(xAxis);
 
 svg.append("g")
-    .attr("class", "y axis")
-    .append("line")
-    .attr("x1", x(0))
-    .attr("x2", x(0))
-    .attr("y2", height);
-
+    .attr("class", "y_axis")
+    .call(yAxis)
+    .selectAll("text")
+    .style("text-anchor", "end")
+      .attr("dx", "-.8em")
+      .attr("dy", ".15em")
+      .attr("transform", "translate(-15,17)rotate(90)");
 
 function type(d) {
     d.won = +d.won;
