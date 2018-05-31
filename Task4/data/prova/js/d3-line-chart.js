@@ -14,7 +14,7 @@
 			parent: opts.parent || 'body',
 			class: 'd3-line-chart',
 			all_series: opts.all_series,
-			graph_width: opts.graph_width || 410,
+			graph_width: opts.graph_width || 1050,
 			graph_height: opts.graph_height || 285,
 			margin: opts.margin || {top: 20, right: 150, bottom: 30, left: 60},
 			x_axis_text: opts.x_axis_text || 'x-axis',
@@ -175,7 +175,7 @@
 			.attr("class", 'commit-circle')
 			.classed(series.name, true)
 			.attr("cx", function(d) { return lc.x_scale(d.x); })
-			.attr("r", 10)
+			.attr("r", 1)
 			.attr("cy", function(d) { return lc.y_scale(d.y); })
 			.style("stroke", d3.rgb(lc.color(index)).brighter())
 			.style("fill", lc.color(index))
@@ -193,6 +193,101 @@
 				d3.select(this).classed('selected', false);
 				d3.select("#tooltip").classed("hidden", true);
 			});
+
+		}
+
+		function mouse(series,index) {
+			var data = series.values;
+			var mouseG = lc.graph.append("g")
+	      .attr("class", "mouse-over-effects");
+
+	    mouseG.append("path") // this is the black vertical line to follow mouse
+	      .attr("class", "mouse-line")
+	      .style("stroke", "black")
+	      .style("stroke-width", "1px")
+	      .style("opacity", "0");
+	      
+	    var lines = document.getElementsByClassName('line');
+
+	    var mousePerLine = mouseG.selectAll('.mouse-per-line')
+	      .data(data)
+	      .enter()
+	      .append("g")
+	      .attr("class", "mouse-per-line");
+
+	    mousePerLine.append("circle")
+	      .attr("r", 7)
+	      .style("stroke",d3.rgb(lc.color(index)).brighter())
+	      .style("fill", "none")
+	      .style("stroke-width", "1px")
+	      .style("opacity", "0");
+
+	    mousePerLine.append("text")
+	      .attr("transform", "translate(10,3)");
+
+	    mouseG.append('svg:rect') // append a rect to catch mouse movements on canvas
+	      .attr('width', lc.width) // can't catch mouse events on a g element
+	      .attr('height', lc.height)
+	      .attr('fill', 'none')
+	      .attr('pointer-events', 'all')
+	      .on('mouseout', function() { // on mouse out hide line, circles and text
+	        d3.select(".mouse-line")
+	          .style("opacity", "0");
+	        d3.selectAll(".mouse-per-line circle")
+	          .style("opacity", "0");
+	        d3.selectAll(".mouse-per-line text")
+	          .style("opacity", "0");
+	      })
+	      .on('mouseover', function() { // on mouse in show line, circles and text
+	        d3.select(".mouse-line")
+	          .style("opacity", "1");
+	        d3.selectAll(".mouse-per-line circle")
+	          .style("opacity", "1");
+	        d3.selectAll(".mouse-per-line text")
+	          .style("opacity", "1");
+	      })
+	      .on('mousemove', function() { // mouse moving over canvas
+	        var mouse = d3.mouse(this);
+	        d3.select(".mouse-line")
+	          .attr("d", function() {
+	            var d = "M" + mouse[0] + "," + lc.height;
+	            d += " " + mouse[0] + "," + 0;
+	            return d;
+	          });
+
+	          var x = d3.scale.linear()
+			      .range([0, lc.width]);
+
+			    var y = d3.scale.linear()
+			      .range([lc.height, 0]);
+
+	        d3.selectAll(".mouse-per-line")
+	          .attr("transform", function(d, i) {
+	            var xDate = x.invert(mouse[0]);
+	                bisect = d3.bisector(function(d) { return d.x; }).right;
+	                idx = bisect(d.x, xDate);
+	                
+	            var beginning = 0,
+	                end = lines[i].getTotalLength(),
+	                target = null;
+
+	            while (true){
+	              target = Math.floor((beginning + end) / 2);
+	              pos = lines[i].getPointAtLength(target);
+	              if ((target === end || target === beginning) && pos.x !== mouse[0]) {
+	                  break;
+	              }
+	              if (pos.x > mouse[0])      end = target;
+	              else if (pos.x < mouse[0]) beginning = target;
+	              else break; //position found
+	            }
+	            
+	            d3.select(this).select('text')
+	              .text(y.invert(pos.y).toFixed(2));
+	              
+	            return "translate(" + mouse[0] + "," + pos.y +")";
+	          });
+	      });
 		}
 
 		lc.plot = function() {
@@ -205,8 +300,10 @@
 				plot_legend(val, index);
 				plot_line(val, index);
 				plot_points(val, index);
+				mouse(val,index);
 			});
 		}
+
 		return lc;
 	}
 	return LineChart;

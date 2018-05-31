@@ -13,8 +13,8 @@ d3.json("win_lost.json", function(data) {
   lc = new LineChart({
     parent: '#multiple',
     all_series: sub_data,
-    x_axis_text: "year",
-    y_axis_text: "Partits"
+    x_axis_text: "Year",
+    y_axis_text: "Matches"
   });
   lc.plot();
 })
