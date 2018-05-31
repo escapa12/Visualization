@@ -6,15 +6,15 @@ background-color: rgb(0,0,0);
 display: block;
 position: absolute;
 left:500px;
-width: 70px;
-height: 60px;
+width: 90px;
+height: 90px;
 }
 
 #copa p {
 display: block;
 position: absolute;
 font-size: 20px;
-top: 10px;
-left: 530px;
+top: 20px;
+left: 540px;
 width: 15px;
 }

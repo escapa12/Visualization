@@ -42,9 +42,15 @@
   <div class="navbar navbar-inverse navbar-fixed-top" role="navigation" style="background-color:white;">
 
     <div class="container-fluid">
+
       <div id='copa'>
+        <script src='js/lligues_guanyades.js'></script>
+
         <img src="imatges/copa_or.jpg">
-        <p>0</p>
+        <script>create_copa('CLE') </script>
+        <p>
+          0
+        </p>
       </div>
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -55,7 +61,9 @@
         </button>
         <a class="navbar-brand">
           <span class=""></span>
-        <a class="navbar-brand">NBA Teams Dashboard</a>
+        <!-- <a class="navbar-brand">NBA Teams Dashboard</a> -->
+        <img src="../logos/NBAlogo1.png" height="60">
+        <img src="../logos/ATL.gif" height="60" >
       </div>
       <div class="chart-stage">
 
@@ -226,6 +234,10 @@
     //Refresh
     document.getElementById('table2').innerHTML = "";
     // plot_table2();
+
+    //Refresh
+    // document.getElementById('copa').innerHTML = "";
+    // create_copa(current_franch);
   }
   notEmpty()
 
