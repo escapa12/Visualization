@@ -22,13 +22,13 @@ function victoriesvslosses(franch_seleccio){
     }
 
 var margin = {
-    top: 50,
-    right: 15,
-    bottom: 2,
-    left: 15
+    top: 0,
+    right: 100,
+    bottom: 50,
+    left: 0
 },
-width = 220 - margin.left - margin.right,
-height = 900 - margin.top - margin.bottom;
+width = 350 - margin.left - margin.right,
+height = 800 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
     .range([0, width])
@@ -48,7 +48,7 @@ var svg = d3.select("#victoriesvslosses").append("svg")
     .attr("width", height + margin.top + margin.bottom)
     .attr("height", width + margin.left + margin.right)
     .append("g")
-    .attr('transform','translate(300,-50)rotate(-90,0,250)');
+    .attr('transform','translate(288,20)rotate(-90,0,250)');
 
 x.domain([-82,82])
 y.domain(results.map(function (d) {

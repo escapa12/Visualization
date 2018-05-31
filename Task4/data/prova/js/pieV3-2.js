@@ -30,8 +30,8 @@ var dades = [
 ]
 
 
-var w = 140;
-var h = 140;
+var w = 120;
+var h = 120;
 var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
 
@@ -73,7 +73,7 @@ function mouseout(d){
 vis.select("#pie_centre").text("Free throws").attr("transform","translate(-35,0)") ;
 
 }
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", 5).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie').append("svg:svg").attr("width", 50).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 
 
