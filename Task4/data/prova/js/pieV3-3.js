@@ -72,7 +72,7 @@ function mouseout(d){
 vis.select("#pie_centre").text("3 Points").attr("transform","translate(-25,0)") ;
 
 }
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", 800).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie').append("svg:svg").attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 
 
