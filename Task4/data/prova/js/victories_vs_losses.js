@@ -103,11 +103,11 @@ svg.append("g")
 
 svg.append("text")
     .attr("transform", "rotate(90)")
-    .attr("x", (width)+60)             
+    .attr("x", (width)+60)
     .attr("y", -250)
-    .attr("text-anchor", "middle")  
-    .style("font-size", "24px") 
-    .style("text-decoration", "underline")  
+    .attr("text-anchor", "middle")
+    .style("font-size", "20px") 
+    .style("text-decoration", "underline")
     .text("Wins vs losses");
 
 function type(d) {

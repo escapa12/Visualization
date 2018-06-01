@@ -89,7 +89,7 @@
         .attr("x", (lc.width / 2))
         .attr("y", 0 - (lc.margin.top / 2))
         .attr("text-anchor", "middle")
-        .style("font-size", "24px")
+        .style("font-size", "20px")
         .style("text-decoration", "underline")
         .text("Wins");
 
@@ -128,7 +128,7 @@
 
     function set_color(lc) {
       // console.log(lc.color);
-      var color = d3.scale.category20();
+      var color = d3.scale.category20b();
       // console.log(color);
       // color.domain(lc.all_series.map(function(d) { return d.name }));
       lc.color = color;
