@@ -89,9 +89,10 @@
         .attr("x", (lc.width / 2))
         .attr("y", 0 - (lc.margin.top / 2))
         .attr("text-anchor", "middle")
-        .style("font-size", "24px")
+        .style("font-size", "20px")
         .style("text-decoration", "underline")
-        .text("Wins");
+        .text("Wins")
+        .style("text-color","#2a6496");
 
       lc.graph.append("g")
       .attr("class", "x axis")
@@ -206,8 +207,8 @@
               .attr("class", "title-text")
               .text(d.y)
               .attr("text-anchor", "middle")
-              .attr("x", xPosition-90)
-              .attr("y", yPosition-150);
+              .attr("x", xPosition-70)
+              .attr("y", yPosition-200);
 
       })
       .on("mouseleave", function() {
