@@ -85,6 +85,14 @@
       var xAxis = d3.svg.axis().scale(lc.x_scale).orient("bottom").tickFormat(d3.format("d"));
       var yAxis = d3.svg.axis().scale(lc.y_scale).orient("left");
 
+      lc.graph.append("text")
+        .attr("x", (lc.width / 2))             
+        .attr("y", 0 - (lc.margin.top / 2))
+        .attr("text-anchor", "middle")  
+        .style("font-size", "24px") 
+        .style("text-decoration", "underline")  
+        .text("Wins");
+
       lc.graph.append("g")
       .attr("class", "x axis")
       .attr("transform", "translate(0," + lc.height + ")")

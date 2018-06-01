@@ -90,16 +90,25 @@ svg.selectAll(".losses")
 
 svg.append("g")
     .attr("class", "x axis")
-    .call(xAxis);
+    .call(xAxis).selectAll("text").attr("transform", "translate(-16,-20)rotate(90)");
 
 svg.append("g")
     .attr("class", "text")
     .call(yAxis)
-    .selectAll("text")
+    .selectAll("text").attr("transform", "rotate(90)")
     .style("text-anchor", "end")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
       .attr("transform", "translate(-15,12)rotate(90)");
+
+svg.append("text")
+    .attr("transform", "rotate(90)")
+    .attr("x", (width)+60)             
+    .attr("y", -250)
+    .attr("text-anchor", "middle")  
+    .style("font-size", "24px") 
+    .style("text-decoration", "underline")  
+    .text("Wins vs losses");
 
 function type(d) {
     d.won = +d.won;
