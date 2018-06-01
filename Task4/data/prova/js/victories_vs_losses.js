@@ -30,7 +30,7 @@ var margin = {
     left: 0
 },
 width = 350 - margin.left - margin.right,
-height = 800 - margin.top - margin.bottom;
+height = 700 - margin.top - margin.bottom;
 
 var x = d3.scale.linear()
     .range([0, width])
