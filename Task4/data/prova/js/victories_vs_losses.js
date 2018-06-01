@@ -15,9 +15,11 @@ function victoriesvslosses(franch_seleccio){
     results = []
     for (i = 0; i < data.length; i++){
       if(franch_seleccio==data[i].franchID){
-        results.push({year: data[i].year,
-                        won: data[i].won,
-                        lost: data[i].lost})
+        if (data[i].year <= 2008) {
+          results.push({year: data[i].year,
+                          won: data[i].won,
+                          lost: data[i].lost})
+        }
         }
     }
 
@@ -91,13 +93,13 @@ svg.append("g")
     .call(xAxis);
 
 svg.append("g")
-    .attr("class", "y_axis")
+    .attr("class", "text")
     .call(yAxis)
     .selectAll("text")
     .style("text-anchor", "end")
       .attr("dx", "-.8em")
       .attr("dy", ".15em")
-      .attr("transform", "translate(-15,20)rotate(90)");
+      .attr("transform", "translate(-15,12)rotate(90)");
 
 function type(d) {
     d.won = +d.won;
