@@ -36,7 +36,7 @@ var r = h/2;
 var aColor = ["#1fa900","#bc2403"]
 
 
-var vis = d3.select('#pie').append("svg:svg").data([dades]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis = d3.select('#pie2').append("svg:svg").data([dades]).attr("width", w).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 var pie = d3.layout.pie().value(function(d){return d.value;});
 
@@ -73,7 +73,7 @@ function mouseout(d){
 vis.select("#pie_centre").text("Free throws").attr("transform","translate(-35,0)") ;
 
 }
-var vis2 = d3.select('#pie').append("svg:svg").attr("width", 50).attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
+var vis2 = d3.select('#pie2').append("svg:svg").attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");
 
 
 

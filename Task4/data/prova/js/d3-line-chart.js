@@ -129,7 +129,10 @@
 
       legend.append("text")
       .attr("class", "legend-text-" + index)
-      .text(series.name)
+      .text(function(d) {
+        if(series.name.includes("homeWon")) return "Wins home";
+        else return "Wins away";
+        series.name})
       .attr("x", lc.width-100)
       .attr("y", -26 + index*20);
 
@@ -154,6 +157,11 @@
         });
       });
     }
+
+    function legend_name(d) {
+        if(series.name.includes("homeWon")) return "Wins home";
+        else return "Wins away";
+        series.name}
 
     function plot_line(series, index) {
       var line = d3.svg.line()
