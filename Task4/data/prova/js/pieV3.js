@@ -63,13 +63,13 @@ arcs.append("svg:text")
     )
 
 
-  vis.append("text").attr("id","pie_centre").text("Field goals").style("font-size", 13).attr("transform","translate(-35,0)");
+  vis.append("text").attr("id","pie_centre").text("Field goals").style("font-size", 11).attr("transform","translate(-30,0)");
   function mousein(d){
 
-  vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).style("font-size", 22).attr("transform","translate(-20,0)");
+  vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).style("font-size", 11).attr("transform","translate(-20,0)");
   }
   function mouseout(d){
-  vis.select("#pie_centre").text("Field goal").attr("transform","translate(-35,0)") ;
+  vis.select("#pie_centre").text("Field goal").attr("transform","translate(-30,0)") ;
 
   }
 

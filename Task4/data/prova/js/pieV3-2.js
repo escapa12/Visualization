@@ -64,13 +64,13 @@ arcs.append("svg:text")
     // .attr("text-anchor", "middle")
     // .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
 
-vis.append("text").attr("id","pie_centre").text("Free throws").style("font-size", 13).attr("transform","translate(-35,0)");
+vis.append("text").attr("id","pie_centre").text("Free throws").style("font-size", 11).attr("transform","translate(-30,0)");
 function mousein(d){
 
 vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).attr("transform","translate(-20,0)");
 }
 function mouseout(d){
-vis.select("#pie_centre").text("Free throws").attr("transform","translate(-35,0)") ;
+vis.select("#pie_centre").text("Free throws").attr("transform","translate(-30,0)") ;
 
 }
 var vis2 = d3.select('#pie2').append("svg:svg").attr("height", h).append("svg:g").attr("transform", "translate(" + r + "," + r + ")");

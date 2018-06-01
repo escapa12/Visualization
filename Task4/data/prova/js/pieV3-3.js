@@ -63,7 +63,7 @@ arcs.append("svg:text")
     // .attr("text-anchor", "middle")
     // .text( function(d, i) {return Math.round(dades[i].value/total*100) + '%';});
 
-vis.append("text").attr("id","pie_centre").text("3 Points").style("font-size", 13).attr("transform","translate(-25,0)");
+vis.append("text").attr("id","pie_centre").text("3 Points").style("font-size", 11).attr("transform","translate(-25,0)");
 function mousein(d){
 
 vis.select("#pie_centre").text(String(Math.round(d.value/total*10000)/100+"%")).attr("transform","translate(-20,0)");
