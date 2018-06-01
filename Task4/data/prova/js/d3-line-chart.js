@@ -86,11 +86,11 @@
       var yAxis = d3.svg.axis().scale(lc.y_scale).orient("left");
 
       lc.graph.append("text")
-        .attr("x", (lc.width / 2))             
+        .attr("x", (lc.width / 2))
         .attr("y", 0 - (lc.margin.top / 2))
-        .attr("text-anchor", "middle")  
-        .style("font-size", "24px") 
-        .style("text-decoration", "underline")  
+        .attr("text-anchor", "middle")
+        .style("font-size", "24px")
+        .style("text-decoration", "underline")
         .text("Wins");
 
       lc.graph.append("g")
@@ -127,9 +127,12 @@
     }
 
     function set_color(lc) {
+      // console.log(lc.color);
       var color = d3.scale.category20();
-      color.domain(lc.all_series.map(function(d) { return d.name }));
+      // console.log(color);
+      // color.domain(lc.all_series.map(function(d) { return d.name }));
       lc.color = color;
+      // console.log(lc.color);
     }
 
     function plot_legend(series, index) {
@@ -149,7 +152,8 @@
       .attr("cx", lc.width-110)
       .attr("cy", -30+index*20)
       .attr("r", 8)
-      .style("fill", lc.color(index))
+      .style("fill", lc.color(index+3))
+      // .style("fill", lc.color(index+3))
       .on("mouseenter", function(d) {
         d3.select(this).classed('selected', true);
         var all_points = d3.selectAll('.commit-circle.' + series.name.replace(/\W/g,'.'));
@@ -204,7 +208,7 @@
               .attr("text-anchor", "middle")
               .attr("x", xPosition-90)
               .attr("y", yPosition-150);
-         
+
       })
       .on("mouseleave", function() {
         d3.select(this).classed('selected', false);
@@ -213,7 +217,7 @@
 
     }
 
-    
+
     function mouse(series,index) {
       var data = series.values;
       var mouseG = lc.graph.append("g")
@@ -224,7 +228,7 @@
           .style("stroke", "black")
           .style("stroke-width", "1px")
           .style("opacity", "0");
-          
+
         var lines = document.getElementsByClassName('line');
 
         var mousePerLine = mouseG.selectAll('.mouse-per-line')
@@ -240,7 +244,7 @@
           .style("stroke-width", "1px")
           .style("opacity", "0");
 
-       
+
     }
 
     lc.plot = function() {

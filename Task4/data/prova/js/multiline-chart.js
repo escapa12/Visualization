@@ -182,7 +182,7 @@ var myData = "date	New York	San Francisco	Austin\n\
       .style("stroke", "black")
       .style("stroke-width", "1px")
       .style("opacity", "0");
-      
+
     var lines = document.getElementsByClassName('line');
 
     var mousePerLine = mouseG.selectAll('.mouse-per-line')
@@ -239,7 +239,7 @@ var myData = "date	New York	San Francisco	Austin\n\
             var xDate = x.invert(mouse[0]),
                 bisect = d3.bisector(function(d) { return d.date; }).right;
                 idx = bisect(d.values, xDate);
-            
+
             var beginning = 0,
                 end = lines[i].getTotalLength(),
                 target = null;
@@ -254,11 +254,10 @@ var myData = "date	New York	San Francisco	Austin\n\
               else if (pos.x < mouse[0]) beginning = target;
               else break; //position found
             }
-            
+
             d3.select(this).select('text')
               .text(y.invert(pos.y).toFixed(2));
-              
+
             return "translate(" + mouse[0] + "," + pos.y +")";
           });
       });
-      
