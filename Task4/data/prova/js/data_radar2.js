@@ -65,7 +65,7 @@ RadarChart.draw("#chart", d, mycfg);
 /////////// Initiate legend ////////////////
 ////////////////////////////////////////////
 
-var svg = d3.select('#chart-radar')
+var svg = d3.select('#chart')
 	.selectAll('svg')
 	.append('svg')
 	.attr("width", w+300)
@@ -74,7 +74,7 @@ var svg = d3.select('#chart-radar')
 //Create the title for the legend
 var text = svg.append("text")
 	.attr("class", "title")
-	.attr('transform', 'translate(90,70)')
+	.attr('transform', 'translate(90,20)')
 	.attr("x", w - 70)
 	.attr("y", 0)
 	.attr("font-size", "16px")
@@ -86,7 +86,7 @@ var legend = svg.append("g")
 	.attr("class", "legend")
 	.attr("height", 100)
 	.attr("width", 200)
-	.attr('transform', 'translate(90,85)')
+	.attr('transform', 'translate(90,30)')
 	;
 	//Create colour squares
 	legend.selectAll('rect')
